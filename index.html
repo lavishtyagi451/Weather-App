@@ -7,46 +7,49 @@
     <title>Weather App</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="body">
 
 <div class="weather-container">
     
     <div class="search">
    
        <input type="text" id="cityInput" placeholder="Enter city name...">
-       <button id="myButton"><img src= "images\searchpng"></button>
-
-
+       <button class ="myButton"><img src= "images\search.png"></button>
     </div>
+
+
+    <div class="error">
+      <p class="error-text">City not found.</p>
+
+      </div>
 
     <div class="weather-info">
 
-        <img class="weatherIcon" src="images\clear.png" alt="Weather Icon">
+        <img class="weatherIcon" src="images/clear.png" alt="Weather Icon">
 
         <div class="search-output">
           <h1 class="temperature">33°C</h1>
-          <h2 class="cityName" >Banglore</h2>
+          <h2 class="cityName" >NEW YORK</h2>
         </div>
     <div class="details">
-        <div class="col-1 ">
-            <img class = "humidityIcon" src="images/humidity.png" alt="Humidity Icon"  >
-            <div>
-             <p class="humidity">60% </p>
-             <p class = "humidity-text">Humidity</p>
-             </div>
 
-        
-         </div>  
+    <div class="col">
+        <img src="images/humidity.png" class="humidityIcon">
+        <div>
+            <p class="humidity">60%</p>
+            <p class="humidity-text">Humidity</p>
+        </div>
+    </div>
 
-        <div class="col-2">
-            <img class = "windIcon" src="images/wind.png" alt="Wind Icon" >
-                
-            <div>  
-                <p class="wind-speed">10 km/h</p>
-                <p class="wind-text">Wind Speed</p>
-            </div>
-        </div>   
-             
+    <div class="col">
+        <img src="images/wind.png" class="windIcon">
+        <div>
+            <p class="wind-speed">10 km/h</p>
+            <p class="wind-text">Wind Speed</p>
+        </div>
+    </div>
+
+</div>
 
         
         
@@ -55,7 +58,93 @@
 
 </div>
 
+<script>
 
+const apiKey= "66101807a57e0046d5b7326e807c88e0";
+const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+
+const searchBox = document.querySelector('.search input');
+const searchButton = document.querySelector('.search button');
+const weatherIcon = document.querySelector('.weatherIcon');
+const weatherInfo = document.querySelector(".weather-info");
+
+
+
+async function checkWeather(cityName) {
+
+ const response = await fetch(apiUrl + cityName + `&appid=${apiKey}`);
+
+ if (response.status == 404){
+    document.querySelector('.error').style.display = "block";
+    document.querySelector('.weather-info').style.display = "none";
+    
+ }else {
+    
+ document.querySelector('.error').style.display = "none";
+ var data = await response.json();
+ 
+ console.log(data);
+ console.log(apiUrl);
+document.querySelector('.temperature').innerHTML = Math.round(data.main.temp) + "°C";
+document.querySelector('.cityName').innerHTML = data.name;
+document.querySelector('.humidity').innerHTML = data.main.humidity + "%";
+document.querySelector('.wind-speed').innerHTML = data.wind.speed + " km/h"; 
+
+
+const day_status = data.weather[0].main; 
+
+
+
+
+
+
+if (day_status === "Clear") {
+        weatherIcon.src = "images/clear.png";
+        
+        
+
+    } else if (day_status === "Clouds") {
+        weatherIcon.src = "images/clouds.png";
+        
+
+
+    } else if (day_status === "Rain") {
+        weatherIcon.src = "images/rain.png";
+
+
+    } else if (day_status === "Snow") {
+        weatherIcon.src = "images/snow.png";
+       
+
+
+    } else if (day_status === "drizzle") {
+        weatherIcon.src = "images/drizzle.png";
+    }   else if (day_status === "mist") {
+       
+    } else {
+        weatherIcon.src = "images/clear.png";
+    }
+    
+document.querySelector('.weather-info').style.display= "block";  
+
+
+
+}
+
+}
+
+searchButton.addEventListener('click', () => {
+checkWeather(searchBox.value);
+
+
+ }); 
+
+
+
+
+
+
+</script>
 
 
     

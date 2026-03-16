@@ -7,27 +7,34 @@ box-sizing: border-box;
 font-family: poppins,sans-serif;
 }
 
-body{
-background: #f0f0f0;
-
-
+body{ 
+background: #f0f0f0;  
+backdrop-filter: blur(15px);
 
 }
-
-
 .weather-container{
+
+
+    
+  backdrop-filter: blur(15px);
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+
+  
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+
+  /*box-shadow: 0 8px 32px rgba(0,0,0,0.2); */
+  border-radius: 20px;
 background: linear-gradient(135deg,#00feba,#5b548a);
 color: #f0f0f0;
-
 width: 30%;
 padding: 40px 35px;
 margin: 100px auto 0;
 
 text-align: center;
 border: none;
-border-radius: 10px;
+border-radius: 10px;  
 }
-
 
 .search{
     display: flex;
@@ -36,7 +43,8 @@ border-radius: 10px;
 
 .search input{
     
-    width: 550px;
+    width: 600px;
+    height: fit-content;
 
     padding: 20px 20px;
     border: none;
@@ -62,8 +70,20 @@ border-radius: 10px;
     width: 20px;
     height: 20px;
 }
+.search button img:hover{
+    filter: invert(100%);
+}
+
+.search button:active{
+    opacity: 0.5;
+}
+.search button:hover{
+    background: #f0f0f0;
+    
+}
 
 .weather-info{
+display: none;
 margin-top: 10px;
 margin-bottom: 50px;
 display: flex;
@@ -76,8 +96,15 @@ padding: 0 20px;
     margin-top: -10px;
 }
 
-.weather-info h1{
 
+.weatherIcon{
+    width: 50%;
+    height: 50%;
+
+}
+
+.weather-info h1{
+margin-top: -10px;
 font-size: 60px;
 font-weight: 450px;
 }
@@ -85,7 +112,7 @@ font-weight: 450px;
 .weather-info h2{
     margin-top: -10px;
     font-size: 40px;
-font-weight: 350px;
+font-weight: 300px;
 
 
 
@@ -110,7 +137,7 @@ margin-top: 100px;
     margin-top: 40px;
     gap:60px;
 }
-.col-1, .col-2 {
+.col {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -126,7 +153,7 @@ height: 50px;
     margin-left: 5px;
 }
 .humidity-text{
-    margin-left: 10px;
+    margin-left: 5px;
     font-size: 15px;
 }
 
@@ -138,14 +165,7 @@ width: 60px;
 height: 60px;
 }
 
-/*
-.col-2{
-padding: 0 -80px;
-margin-right: 80px;
 
-display: flex;
-}
-*/
 .windIcon{
 width: 50px;
 height: 50px;
@@ -159,4 +179,20 @@ white-space: nowrap;
 }
 .wind-text{
     margin-top: -5px;
+    white-space: nowrap;
 }
+
+.weather-info{
+    display: none;
+}
+
+.error{
+    display: none;
+    text-align: left;
+    margin-left: 20px;
+    margin-top: 10px;
+    color: #f3efef;
+    font-size: 18px;
+    font-family: poppins,sans-serif;
+}
+
